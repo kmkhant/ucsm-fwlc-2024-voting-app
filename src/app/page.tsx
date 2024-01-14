@@ -35,7 +35,7 @@ export default function Home() {
 					Others
 				</button>
 			</div>
-			<section className="flex flex-col justify-center items-center">
+			<section className="flex flex-col justify-center items-center pb-8">
 				{data.map((card, idx) => (
 					<Card key={idx} {...card} />
 				))}

@@ -50,7 +50,7 @@ function Generate() {
 
 	return authorized ? (
 		<section className="">
-			<div className="flex flex-col min-h-[40vh] items-center justify-center h-full">
+			<div className="flex flex-col min-h-screen items-center justify-center h-full">
 				<div>
 					{status === "idle" ||
 						(status === "success" && data && (
@@ -98,7 +98,7 @@ function Generate() {
 			</div>
 		</section>
 	) : (
-		<div>
+		<div className="min-h-screen">
 			<div>
 				<h1 className="text-xl text-center">
 					MAKE A WISH :P
