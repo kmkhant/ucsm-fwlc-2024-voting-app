@@ -52,20 +52,19 @@ function Generate() {
 		<section className="">
 			<div className="flex flex-col min-h-screen items-center justify-center h-full">
 				<div>
-					{status === "idle" ||
-						(status === "success" && data && (
-							<div className="text-center my-4 font-bold text-2xl">
-								{data || "Generate a coupon"}
-								<br />
-								<div className="flex justify-center">
-									<QRCode
-										value={data}
-										size={256}
-										viewBox="0 0 256 256"
-									/>
-								</div>
+					{status === "success" && data && (
+						<div className="text-center my-4 font-bold text-2xl">
+							{data || "Generate a coupon"}
+							<br />
+							<div className="flex justify-center">
+								<QRCode
+									value={data}
+									size={256}
+									viewBox="0 0 256 256"
+								/>
 							</div>
-						))}
+						</div>
+					)}
 
 					{status === "idle" && !data && (
 						<div className="text-center my-4 text-primary font-bold text-2xl">

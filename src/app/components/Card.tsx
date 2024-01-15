@@ -112,6 +112,8 @@ function Card({
 	isSinger,
 	isPerformance,
 }: ICard) {
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const handleClick = async () => {
 		// fetch coupon from input
 		if (inputRef.current) {
@@ -132,6 +134,7 @@ function Card({
 				// check if king or prince
 				if (isKing) {
 					// vote for king
+					setLoading(true);
 					try {
 						const { data } = await instance.post("/vote", {
 							contestantId,
@@ -139,15 +142,18 @@ function Card({
 							candidateForKing: true,
 						});
 						toast.success(data.message);
+						setLoading(false);
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
 						} else {
 							toast.error("Oops! Something went wrong");
 						}
+						setLoading(false);
 					}
 				} else {
 					// vote for prince
+					setLoading(true);
 					try {
 						const { data } = await instance.post("/vote", {
 							contestantId,
@@ -155,12 +161,14 @@ function Card({
 							candidateForPrince: true,
 						});
 						toast.success(data.message);
+						setLoading(false);
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
 						} else {
 							toast.error("Oops! Something went wrong");
 						}
+						setLoading(false);
 					}
 				}
 			}
@@ -174,17 +182,85 @@ function Card({
 				// check if queen or princess
 				if (isQueen) {
 					// vote for queen
+					try {
+						setLoading(true);
+						const { data } = await instance.post("/vote", {
+							contestantId,
+							coupon,
+							candidateForQueen: true,
+						});
+						toast.success(data.message);
+						setLoading(false);
+					} catch (e) {
+						if (axios.isAxiosError(e)) {
+							toast.error(e.response?.data?.message);
+						} else {
+							toast.error("Oops! Something went wrong");
+						}
+						setLoading(false);
+					}
 				} else {
 					// vote for princess
+					try {
+						setLoading(true);
+						const { data } = await instance.post("/vote", {
+							contestantId,
+							coupon,
+							candidateForPrincess: true,
+						});
+						toast.success(data.message);
+						setLoading(false);
+					} catch (e) {
+						if (axios.isAxiosError(e)) {
+							toast.error(e.response?.data?.message);
+						} else {
+							toast.error("Oops! Something went wrong");
+						}
+						setLoading(false);
+					}
 				}
 			}
 
 			if (isSinger) {
 				// vote for singer
+				try {
+					setLoading(true);
+					const { data } = await instance.post("/vote", {
+						contestantId,
+						coupon,
+						candidateForSinger: true,
+					});
+					toast.success(data.message);
+					setLoading(false);
+				} catch (e) {
+					if (axios.isAxiosError(e)) {
+						toast.error(e.response?.data?.message);
+					} else {
+						toast.error("Oops! Something went wrong");
+					}
+					setLoading(false);
+				}
 			}
 
 			if (isPerformance) {
-				// vote for performance
+				// vote for singer
+				try {
+					setLoading(true);
+					const { data } = await instance.post("/vote", {
+						contestantId,
+						coupon,
+						candidateForPerformance: true,
+					});
+					toast.success(data.message);
+					setLoading(false);
+				} catch (e) {
+					if (axios.isAxiosError(e)) {
+						toast.error(e.response?.data?.message);
+					} else {
+						toast.error("Oops! Something went wrong");
+					}
+					setLoading(false);
+				}
 			}
 		}
 	};
@@ -198,8 +274,8 @@ function Card({
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	return (
-		<div className="p-4 rounded-md backdrop-blur-xl shadow-2xl">
-			<div>
+		<div className="p-4 rounded-md backdrop-blur-xl shadow-2xl mt-4">
+			<div className="">
 				<Image
 					src={image}
 					alt={name}
@@ -295,10 +371,11 @@ function Card({
 			</div>
 
 			<button
-				className="btn btn-primary w-full text-lg text-white font-normal"
+				className={`btn btn-primary w-full text-lg text-white font-normal disabled:bg-neutral`}
 				onClick={() => handleClick()}
+				disabled={loading}
 			>
-				Vote
+				{loading ? "Voting..." : "Vote"}
 			</button>
 		</div>
 	);
