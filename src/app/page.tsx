@@ -40,6 +40,10 @@ export default function Home() {
 					<Card key={idx} {...card} />
 				))}
 			</section>
+			<footer className="text-center text-sm my-4">
+				<h6>Made with ❤️</h6>
+				<h6>&copy; Khaing Myel Khant - 2024</h6>
+			</footer>
 		</main>
 	);
 }
