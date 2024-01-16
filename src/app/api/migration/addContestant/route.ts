@@ -4,9 +4,6 @@ import Contestant from "@/models/Contestant";
 import connectDB from "../../lib/connectDB";
 import { NextResponse } from "next/server";
 
-// made this route run on edge
-export const runtime = "edge";
-
 export async function GET(request: Request) {
 	await connectDB();
 
@@ -137,7 +134,7 @@ export async function GET(request: Request) {
 	];
 
 	try {
-		// await Contestant.insertMany(contestants);
+		await Contestant.insertMany(contestants);
 		return NextResponse.json(
 			{ message: "Added Contestants" },
 			{ status: 200 }

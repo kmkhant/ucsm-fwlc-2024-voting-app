@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@upstash/ratelimit": "^1.0.0",
+    "@vercel/kv": "^1.0.1",
     "axios": "^1.6.5",
     "md5": "^2.3.0",
     "mongodb": "^6.3.0",

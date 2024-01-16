@@ -4,8 +4,6 @@ import Contestant from "@/models/Contestant";
 import connectDB from "../lib/connectDB";
 import { NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 export async function POST(request: Request) {
 	await connectDB();
 
