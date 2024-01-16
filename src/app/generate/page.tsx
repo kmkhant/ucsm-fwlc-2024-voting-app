@@ -17,7 +17,9 @@ function Generate() {
 		"coupons",
 		async () => {
 			try {
-				const resp = await instance.get("/generate");
+				const resp = await instance.post(
+					"/fwlc-gE4okB-generate"
+				);
 
 				const { data } = resp;
 

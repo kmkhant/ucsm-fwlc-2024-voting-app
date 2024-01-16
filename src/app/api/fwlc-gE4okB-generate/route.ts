@@ -2,7 +2,7 @@ import Coupon from "@/models/Coupon";
 import Contestant from "@/models/Contestant";
 import connectDB from "../lib/connectDB";
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
 	await connectDB();
 
 	// console.log(coupon);
