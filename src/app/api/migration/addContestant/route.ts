@@ -4,24 +4,11 @@ import Contestant from "@/models/Contestant";
 import connectDB from "../../lib/connectDB";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-	await connectDB();
-	const { secret } = await request.json();
+// made this route run on edge
+export const runtime = "edge";
 
-	// auth
-	try {
-		if (secret !== process.env.API_SECRET) {
-			return NextResponse.json(
-				{ message: "Wish :)" },
-				{ status: 401 }
-			);
-		}
-	} catch (e) {
-		return NextResponse.json(
-			{ message: "Not for you! Wish :)" },
-			{ status: 401 }
-		);
-	}
+export async function GET(request: Request) {
+	await connectDB();
 
 	// Contestants
 	const contestants: (typeof Contestant)[] = [
@@ -150,7 +137,7 @@ export async function POST(request: Request) {
 	];
 
 	try {
-		await Contestant.insertMany(contestants);
+		// await Contestant.insertMany(contestants);
 		return NextResponse.json(
 			{ message: "Added Contestants" },
 			{ status: 200 }

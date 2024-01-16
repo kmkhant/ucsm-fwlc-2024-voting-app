@@ -4,24 +4,10 @@ import Contestant from "@/models/Contestant";
 import connectDB from "../lib/connectDB";
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export async function POST(request: Request) {
 	await connectDB();
-	const { secret } = await request.json();
-
-	// auth
-	try {
-		if (secret !== process.env.API_SECRET) {
-			return NextResponse.json(
-				{ message: "Wish :)" },
-				{ status: 401 }
-			);
-		}
-	} catch (e) {
-		return NextResponse.json(
-			{ message: "Not for you! Wish :)" },
-			{ status: 401 }
-		);
-	}
 
 	const codes = voucher_codes.generate({
 		prefix: "fwlc-",
@@ -141,20 +127,21 @@ export async function POST(request: Request) {
 	const coupons: (typeof Coupon)[] = [];
 
 	codes.map((code) => {
-		coupons.push(
-			new Coupon({
-				coupon: code,
-				stats: {
-					isGenerated: false,
-					isKingVoted: false,
-					isPrinceVoted: false,
-					isQueenVoted: false,
-					isPrincessVoted: false,
-					isSingerVoted: false,
-					isPerformanceVoted: false,
-				},
-			})
-		);
+		coupons
+			.push
+			// new Coupon({
+			// 	coupon: code,
+			// 	stats: {
+			// 		isGenerated: false,
+			// 		isKingVoted: false,
+			// 		isPrinceVoted: false,
+			// 		isQueenVoted: false,
+			// 		isPrincessVoted: false,
+			// 		isSingerVoted: false,
+			// 		isPerformanceVoted: false,
+			// 	},
+			// })
+			();
 	});
 
 	// await Coupon.insertMany(coupons);
