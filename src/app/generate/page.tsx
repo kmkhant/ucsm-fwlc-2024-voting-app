@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import instance from "@/utils/axios";
 import axios from "axios";
 import QRCode from "react-qr-code";
@@ -13,7 +13,7 @@ function Generate() {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { status, data, refetch } = useQuery(
+	const { status, data, refetch, isFetching } = useQuery(
 		"coupons",
 		async () => {
 			try {
@@ -34,8 +34,6 @@ function Generate() {
 		},
 		{ enabled: false, retry: false }
 	);
-
-	// console.log(md5("fwlcadminiscute"));
 
 	const validateInput = () => {
 		if (inputRef.current) {
@@ -89,10 +87,12 @@ function Generate() {
 					<div className="flex justify-center">
 						<button
 							className={`btn btn-primary text-center text-sm text-white disabled:btn-disabled`}
-							disabled={status === "loading"}
+							disabled={isFetching}
 							onClick={() => refetch()}
 						>
-							Generate
+							{isFetching
+								? "Fetching Coupon..."
+								: "Generate"}
 						</button>
 					</div>
 				</div>
