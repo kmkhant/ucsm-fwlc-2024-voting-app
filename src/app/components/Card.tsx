@@ -20,7 +20,7 @@ export const dataSelections: ICard[] = [
 	},
 	{
 		contestantId: "FWLC-KP-#2",
-		name: "Mg Soe Moe",
+		name: "Mg Aung Ye Lin",
 		description: "Contestant #2",
 		image: PlaceHolderImage,
 		isMale: true,
@@ -43,14 +43,14 @@ export const dataSelections: ICard[] = [
 	// Queen and Princesses
 	{
 		contestantId: "FWLC-QP-#1",
-		name: "Ma Ei Ei Aung",
+		name: "Ma Soe Pyae Thazin",
 		description: "Contestant #1",
 		image: PlaceHolderImage,
 		isFemale: true,
 	},
 	{
 		contestantId: "FWLC-QP-#2",
-		name: "Ma Soe Moe",
+		name: "Ma Moe Hay Ko",
 		description: "Contestant #2",
 		image: PlaceHolderImage,
 		isFemale: true,
@@ -74,28 +74,28 @@ export const dataSelections: ICard[] = [
 export const dataOthers: ICard[] = [
 	{
 		contestantId: "FWLC-S-#1",
-		name: "Kyaw Nay Min",
+		name: "Ma Bobby Soxer",
 		description: "Singer #1",
 		image: PlaceHolderImage,
 		isSinger: true,
 	},
 	{
 		contestantId: "FWLC-S-#2",
-		name: "Min Thura Kyaw",
+		name: "Mg Hlawn Paing",
 		description: "Singer #2",
 		image: PlaceHolderImage,
 		isSinger: true,
 	},
 	{
 		contestantId: "FWLC-P-#1",
-		name: "Yes We Purple",
+		name: "KPOP Dance Group",
 		description: "Performance #1",
 		image: PlaceHolderImage,
 		isPerformance: true,
 	},
 	{
 		contestantId: "FWLC-P-#2",
-		name: "KPOPPERS",
+		name: "Yein Aka",
 		description: "Performance #2",
 		image: PlaceHolderImage,
 		isPerformance: true,
@@ -126,13 +126,13 @@ function Card({
 
 			if (isMale) {
 				// check if king or prince is selected
-				if (isKing === undefined) {
+				if (isKingOrPrince === "") {
 					toast.error("Please select King or Prince");
 					return;
 				}
 
 				// check if king or prince
-				if (isKing) {
+				if (isKingOrPrince === "king") {
 					// vote for king
 					setLoading(true);
 					try {
@@ -143,6 +143,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setIsKingOrPrince("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -150,6 +151,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setIsKingOrPrince("");
 					}
 				} else {
 					// vote for prince
@@ -162,6 +164,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setIsKingOrPrince("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -169,18 +172,19 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setIsKingOrPrince("");
 					}
 				}
 			}
 
 			if (isFemale) {
 				// check if queen or princess is selected
-				if (isQueen === undefined) {
+				if (isQueenOrPrincess === "") {
 					toast.error("Please select Queen or Princess");
 					return;
 				}
 				// check if queen or princess
-				if (isQueen) {
+				if (isQueenOrPrincess === "queen") {
 					// vote for queen
 					try {
 						setLoading(true);
@@ -191,6 +195,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setQueenOrPrincess("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -198,6 +203,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setQueenOrPrincess("");
 					}
 				} else {
 					// vote for princess
@@ -210,6 +216,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setQueenOrPrincess("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -217,6 +224,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setQueenOrPrincess("");
 					}
 				}
 			}
@@ -265,12 +273,10 @@ function Card({
 		}
 	};
 
-	const [isKing, setIsKing] = useState<boolean | undefined>(
-		undefined
-	);
-	const [isQueen, setIsQueen] = useState<
-		boolean | undefined
-	>(undefined);
+	const [isKingOrPrince, setIsKingOrPrince] =
+		useState<string>("");
+	const [isQueenOrPrincess, setQueenOrPrincess] =
+		useState<string>("");
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	return (
@@ -296,8 +302,9 @@ function Card({
 						name="radio-1"
 						className="radio radio-primary"
 						value="king"
+						checked={isKingOrPrince === "king"}
 						onClick={() => {
-							setIsKing(true);
+							setIsKingOrPrince("king");
 						}}
 					/>
 					<label
@@ -313,8 +320,9 @@ function Card({
 						name="radio-1"
 						className="radio radio-primary"
 						value="prince"
+						checked={isKingOrPrince === "prince"}
 						onClick={() => {
-							setIsKing(false);
+							setIsKingOrPrince("prince");
 						}}
 					/>
 					<label
@@ -332,8 +340,9 @@ function Card({
 						name="radio-1"
 						className="radio radio-primary"
 						value="queen"
+						checked={isQueenOrPrincess === "queen"}
 						onClick={() => {
-							setIsQueen(true);
+							setQueenOrPrincess("queen");
 						}}
 					/>
 					<label
@@ -349,8 +358,9 @@ function Card({
 						name="radio-1"
 						className="radio radio-primary"
 						value="princess"
+						checked={isQueenOrPrincess === "princess"}
 						onClick={() => {
-							setIsQueen(false);
+							setQueenOrPrincess("princess");
 						}}
 					/>
 					<label
