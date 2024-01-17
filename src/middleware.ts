@@ -28,5 +28,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-	matcher: "/api/migration/:path*",
+	matcher: ["/api/migration/:path*", "/api/results/:path*"],
 };
