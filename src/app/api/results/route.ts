@@ -11,22 +11,25 @@ export async function POST(request: Request) {
 		{
 			"role.candidateForKing": true,
 		},
+		["contestantId", "name", "votes.king"],
 		{ sort: { "votes.king": -1 } }
-	).select("contestantId name votes.king");
+	);
 
 	const queen = await Contestant.findOne(
 		{
 			"role.candidateForQueen": true,
 		},
+		["contestantId", "name", "votes.queen"],
 		{ sort: { "votes.queen": -1 } }
-	).select("contestantId name votes.queen");
+	);
 
 	const prince = await Contestant.findOne(
 		{
 			"role.candidateForPrince": true,
 		},
+		["contestantId", "name", "votes.prince"],
 		{ sort: { "votes.prince": -1 } }
-	).select("contestantId name votes.prince");
+	);
 
 	// console.log(prince.votes);
 
@@ -41,15 +44,17 @@ export async function POST(request: Request) {
 		{
 			"role.candidateForSinger": true,
 		},
+		["contestantId", "name", "votes.singer"],
 		{ sort: { "votes.singer": -1 } }
-	).select("contestantId name votes.singer");
+	);
 
 	const performance = await Contestant.findOne(
 		{
 			"role.candidateForPerformance": true,
 		},
+		["contestantId", "name", "votes.performance"],
 		{ sort: { "votes.performance": -1 } }
-	).select("contestantId name votes.performance");
+	);
 
 	return NextResponse.json({
 		fresherKing: {
