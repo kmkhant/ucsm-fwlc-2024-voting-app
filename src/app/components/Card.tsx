@@ -25,20 +25,6 @@ export const dataSelections: ICard[] = [
 		image: PlaceHolderImage,
 		isMale: true,
 	},
-	{
-		contestantId: "FWLC-KP-#3",
-		name: "Mg Kaung Thant",
-		description: "Contestant #3",
-		image: PlaceHolderImage,
-		isMale: true,
-	},
-	{
-		contestantId: "FWLC-KP-#4",
-		name: "Mg Min Thant",
-		description: "Contestant #4",
-		image: PlaceHolderImage,
-		isMale: true,
-	},
 
 	// Queen and Princesses
 	{
@@ -52,20 +38,6 @@ export const dataSelections: ICard[] = [
 		contestantId: "FWLC-QP-#2",
 		name: "Ma Moe Hay Ko",
 		description: "Contestant #2",
-		image: PlaceHolderImage,
-		isFemale: true,
-	},
-	{
-		contestantId: "FWLC-QP-#3",
-		name: "Ma Moe Moe",
-		description: "Contestant #3",
-		image: PlaceHolderImage,
-		isFemale: true,
-	},
-	{
-		contestantId: "FWLC-QP-#4",
-		name: "Ma Soe Moe Shwe Yee",
-		description: "Contestant #4",
 		image: PlaceHolderImage,
 		isFemale: true,
 	},
