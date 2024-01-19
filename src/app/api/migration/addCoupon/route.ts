@@ -22,10 +22,22 @@ export async function POST(request: Request) {
 				coupon: code,
 				stats: {
 					isGenerated: false,
-					isKingVoted: false,
-					isPrinceVoted: false,
-					isQueenVoted: false,
-					isPrincessVoted: false,
+					king: {
+						votedKing: "",
+						isKingVoted: false,
+					},
+					queen: {
+						votedQueen: "",
+						isQueenVoted: false,
+					},
+					prince: {
+						votedPrince: "",
+						isPrinceVoted: false,
+					},
+					princess: {
+						votedPrincess: "",
+						isPrincessVoted: false,
+					},
 					isSingerVoted: false,
 					isPerformanceVoted: false,
 				},

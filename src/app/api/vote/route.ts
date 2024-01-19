@@ -1,6 +1,7 @@
 import Coupon from "@/models/Coupon";
 import Contestant from "@/models/Contestant";
 import connectDB from "../lib/connectDB";
+import { NextResponse } from "next/server";
 
 interface IRequest {
 	contestantId: string;
@@ -88,120 +89,118 @@ export async function POST(request: Request) {
 			);
 		}
 
-		// check if contestant is already voted for prince instead of king
-		if (currentCoupon.stats.isPrinceVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Prince",
-				}),
+		// check if contestant is already voted for king
+		if (currentCoupon.stats.king.isKingVoted) {
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
+					message: `Already voted ${currentCoupon.stats.king.votedKing} for King using this coupon`,
+				},
+				{ status: 400 }
 			);
 		}
 
-		// check if contestant is already voted for king
-		if (currentCoupon.stats.isKingVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the King",
-				}),
-				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		} else {
-			// handle vote
-			currentCoupon.stats.isKingVoted = true;
-
-			// increase vote count
-			currentContestant.votes.king += 1;
-
-			const updatedContestant =
-				await Contestant.findOneAndUpdate(
+		// check if contestant is already voted for prince
+		if (currentCoupon.stats.prince.isPrinceVoted) {
+			// check if voted contestant is being voted for prince with this coupon
+			if (
+				currentCoupon.stats.prince.votedPrince ==
+				contestantId
+			) {
+				return NextResponse.json(
 					{
-						contestantId,
+						message: `Already voted ${currentCoupon.stats.prince.votedPrince} for Prince using this coupon`,
 					},
-					currentContestant,
-					{ new: true }
+					{ status: 400 }
 				);
+			}
+		}
+		// handle vote
+		// add voted king to coupon
+		currentCoupon.stats.king.votedKing = contestantId;
 
-			// console.log("BEFORE UPDATE COUPON");
+		// handle king vote
+		currentCoupon.stats.king.isKingVoted = true;
 
-			const updatedCoupon = await Coupon.findOneAndUpdate(
+		// increase vote count
+		currentContestant.votes.king += 1;
+
+		const updatedContestant =
+			await Contestant.findOneAndUpdate(
 				{
-					coupon,
+					contestantId,
 				},
-				currentCoupon,
+				currentContestant,
 				{ new: true }
 			);
-		}
+
+		const updatedCoupon = await Coupon.findOneAndUpdate(
+			{
+				coupon,
+			},
+			currentCoupon,
+			{ new: true }
+		);
 	}
 
 	// handle prince vote
 	if (candidateForPrince) {
 		// check if contestant is a valid candidate for king
 		if (!currentContestant.role.candidateForPrince) {
-			return new Response(
-				JSON.stringify({
-					message: "Candidate is not for Prince",
-				}),
-				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		}
-		// check if contestant is already voted for king instead of prince
-		if (currentCoupon.stats.isKingVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the King",
-				}),
-				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
+			return NextResponse.json(
+				{ message: "Candidate is not for Prince" },
+				{ status: 400 }
 			);
 		}
 
-		// check if contestant is already voted for prince
-		if (currentCoupon.stats.isPrinceVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Prince",
-				}),
+		// check if coupon is already voted for prince
+		if (currentCoupon.stats.prince.isPrinceVoted) {
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		} else {
-			// handle vote
-			currentCoupon.stats.isPrinceVoted = true;
-
-			// increase vote count
-			currentContestant.votes.prince += 1;
-
-			const updatedContestant =
-				await Contestant.findOneAndUpdate(
-					{
-						contestantId,
-					},
-					currentContestant,
-					{ new: true }
-				);
-
-			const updatedCoupon = await Coupon.findOneAndUpdate(
-				{
-					coupon,
+					message: `Already voted ${currentCoupon.stats.prince.votedPrince} for Prince using this coupon`,
 				},
-				currentCoupon,
+				{ status: 400 }
+			);
+		}
+		// check if contestant is already voted for king
+		if (currentCoupon.stats.king.isKingVoted) {
+			// check if voted contestant is being voted for king with this coupon
+			if (
+				currentCoupon.stats.king.votedKing == contestantId
+			) {
+				return NextResponse.json(
+					{
+						message: `You already voted ${currentCoupon.stats.king.votedKing} for King using this coupon`,
+					},
+					{ status: 400 }
+				);
+			}
+		}
+		// handle vote
+		// add voted prince to coupon
+		currentCoupon.stats.prince.votedPrince = contestantId;
+
+		// set prince vote
+		currentCoupon.stats.prince.isPrinceVoted = true;
+
+		// increase vote count
+		currentContestant.votes.prince += 1;
+
+		const updatedContestant =
+			await Contestant.findOneAndUpdate(
+				{
+					contestantId,
+				},
+				currentContestant,
 				{ new: true }
 			);
-		}
+
+		const updatedCoupon = await Coupon.findOneAndUpdate(
+			{
+				coupon,
+			},
+			currentCoupon,
+			{ new: true }
+		);
 	}
 
 	// handle queen vote
@@ -218,59 +217,63 @@ export async function POST(request: Request) {
 				}
 			);
 		}
-		// check if contestant is already voted for princess instead of queen
-		if (currentCoupon.stats.isPrincessVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Princess",
-				}),
-				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		}
 
 		// check if contestant is already voted for queen
-		if (currentCoupon.stats.isQueenVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Queen",
-				}),
+		if (currentCoupon.stats.queen.isQueenVoted) {
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		} else {
-			// handle vote
-			currentCoupon.stats.isQueenVoted = true;
-
-			// increase vote count
-			currentContestant.votes.queen += 1;
-
-			const updatedContestant =
-				await Contestant.findOneAndUpdate(
-					{
-						contestantId,
-					},
-					currentContestant,
-					{ new: true }
-				);
-
-			const updatedCoupon = await Coupon.findOneAndUpdate(
-				{
-					coupon,
+					message: `Already voted ${currentCoupon.stats.queen.votedQueen} for Queen using this coupon`,
 				},
-				currentCoupon,
-				{ new: true }
+				{ status: 400 }
 			);
 		}
+
+		// check if contestant is already voted for princess
+		if (currentCoupon.stats.princess.isPrincessVoted) {
+			// check if voted contestant is being voted for princess with this coupon
+			if (
+				currentCoupon.stats.princess.votedPrincess ==
+				contestantId
+			) {
+				return NextResponse.json(
+					{
+						message: `Already voted ${currentCoupon.stats.princess.votedPrincess} for Princess using this coupon`,
+					},
+					{ status: 400 }
+				);
+			}
+		}
+		// handle vote
+		// add voted queen to coupon
+		currentCoupon.stats.queen.votedQueen = contestantId;
+
+		// handle queen vote
+		currentCoupon.stats.queen.isQueenVoted = true;
+
+		// increase vote count
+		currentContestant.votes.queen += 1;
+
+		const updatedContestant =
+			await Contestant.findOneAndUpdate(
+				{
+					contestantId,
+				},
+				currentContestant,
+				{ new: true }
+			);
+
+		const updatedCoupon = await Coupon.findOneAndUpdate(
+			{
+				coupon,
+			},
+			currentCoupon,
+			{ new: true }
+		);
 	}
 
 	// handle princess vote
 	if (candidateForPrincess) {
-		// check if contestant is a valid candidate for princess
+		// check if contestant is a valid candidate for queen
 		if (!currentContestant.role.candidateForPrincess) {
 			return new Response(
 				JSON.stringify({
@@ -282,54 +285,58 @@ export async function POST(request: Request) {
 				}
 			);
 		}
-		// check if contestant is already voted for queen instead of princess
-		if (currentCoupon.stats.isQueenVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Queen",
-				}),
-				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		}
 
 		// check if contestant is already voted for princess
-		if (currentCoupon.stats.isPrincessVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Princess",
-				}),
+		if (currentCoupon.stats.princess.isPrincessVoted) {
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
-			);
-		} else {
-			// handle vote
-			currentCoupon.stats.isPrincessVoted = true;
-
-			// increase vote count
-			currentContestant.votes.princess += 1;
-
-			const updatedContestant =
-				await Contestant.findOneAndUpdate(
-					{
-						contestantId,
-					},
-					currentContestant,
-					{ new: true }
-				);
-
-			const updatedCoupon = await Coupon.findOneAndUpdate(
-				{
-					coupon,
+					message: `Already voted ${currentCoupon.stats.princess.votedPrincess} for Princess using this coupon`,
 				},
-				currentCoupon,
-				{ new: true }
+				{ status: 400 }
 			);
 		}
+
+		// check if contestant is already voted for queen
+		if (currentCoupon.stats.queen.isQueenVoted) {
+			// check if voted contestant is being voted for queen with this coupon
+			if (
+				currentCoupon.stats.queen.votedQueen == contestantId
+			) {
+				return NextResponse.json(
+					{
+						message: `Already voted ${currentCoupon.stats.queen.votedQueen} for Queen using this coupon`,
+					},
+					{ status: 400 }
+				);
+			}
+		}
+		// handle vote
+		// add voted princess to coupon
+		currentCoupon.stats.princess.votedPrincess =
+			contestantId;
+
+		// handle princess vote
+		currentCoupon.stats.princess.isPrincessVoted = true;
+
+		// increase vote count
+		currentContestant.votes.princess += 1;
+
+		const updatedContestant =
+			await Contestant.findOneAndUpdate(
+				{
+					contestantId,
+				},
+				currentContestant,
+				{ new: true }
+			);
+
+		const updatedCoupon = await Coupon.findOneAndUpdate(
+			{
+				coupon,
+			},
+			currentCoupon,
+			{ new: true }
+		);
 	}
 
 	// handle singer vote

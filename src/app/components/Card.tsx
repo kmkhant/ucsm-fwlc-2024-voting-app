@@ -275,9 +275,11 @@ function Card({
 						className="radio radio-primary"
 						value="king"
 						checked={isKingOrPrince === "king"}
-						onClick={() => {
-							setIsKingOrPrince("king");
-						}}
+						onChange={(e) =>
+							setIsKingOrPrince(
+								e.target.value.toLowerCase().toString()
+							)
+						}
 					/>
 					<label
 						htmlFor="king"
@@ -293,9 +295,11 @@ function Card({
 						className="radio radio-primary"
 						value="prince"
 						checked={isKingOrPrince === "prince"}
-						onClick={() => {
-							setIsKingOrPrince("prince");
-						}}
+						onChange={(e) =>
+							setIsKingOrPrince(
+								e.target.value.toLowerCase().toString()
+							)
+						}
 					/>
 					<label
 						htmlFor="prince"
@@ -313,9 +317,11 @@ function Card({
 						className="radio radio-primary"
 						value="queen"
 						checked={isQueenOrPrincess === "queen"}
-						onClick={() => {
-							setQueenOrPrincess("queen");
-						}}
+						onChange={(e) =>
+							setQueenOrPrincess(
+								e.target.value.toLowerCase().toString()
+							)
+						}
 					/>
 					<label
 						htmlFor="queen"
@@ -331,9 +337,11 @@ function Card({
 						className="radio radio-primary"
 						value="princess"
 						checked={isQueenOrPrincess === "princess"}
-						onClick={() => {
-							setQueenOrPrincess("princess");
-						}}
+						onChange={(e) =>
+							setQueenOrPrincess(
+								e.target.value.toLowerCase().toString()
+							)
+						}
 					/>
 					<label
 						htmlFor="princess"
