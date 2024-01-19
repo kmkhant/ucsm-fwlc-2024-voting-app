@@ -1,22 +1,22 @@
 import { NextResponse } from "next/server";
 
-var serverOn: Boolean = false;
+var show: Boolean = false;
 
 export async function POST(request: Request) {
-	if (serverOn) {
-		serverOn = false;
+	if (show) {
+		show = false;
 	} else {
-		serverOn = true;
+		show = true;
 	}
 
 	return NextResponse.json({
 		message: "Server status changed",
-		status: serverOn,
+		show,
 	});
 }
 
 export async function GET(request: Request) {
 	return NextResponse.json({
-		status: serverOn,
+		show,
 	});
 }

@@ -1,21 +1,36 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Card, {
 	dataSelections,
 	dataOthers,
 } from "./components/Card";
 import { useOptionContext } from "./context/OptionContext";
 import { ICard } from "./types/interfaces";
+import instance from "@/utils/axios";
 
 export default function Home() {
 	const { option, setOption } = useOptionContext();
+	const [show, setShow] = useState<Boolean>(false);
 
 	const data = useMemo(() => {
 		if (option === "kq") return dataSelections;
 		else return dataOthers;
 	}, [option]);
 
-	return (
+	useEffect(() => {
+		instance
+			.get("/toggleServer")
+			.then((res) => {
+				setShow(res.data.show);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
+	return !show ? (
+		<main className="text-center"></main>
+	) : (
 		<main className="">
 			<div className="flex pl-4 mb-6 items-center">
 				<button
