@@ -3,6 +3,13 @@ import type { NextRequest } from "next/server";
 
 // Middleware only available on Edge Runtime Sadge (default: nodejs runtime for budget):(
 export async function middleware(req: NextRequest) {
+	// PASS AUTH FOR GET REQUESTS for toggleServer Route
+	if (req.url.includes("toggleServer")) {
+		if (req.method === "GET") {
+			return NextResponse.next();
+		}
+	}
+
 	try {
 		const { secret } = await req.json();
 
@@ -28,5 +35,9 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/api/migration/:path*", "/api/results/:path*"],
+	matcher: [
+		"/api/migration/:path*",
+		"/api/results/:path*",
+		"/api/toggleServer/:path*",
+	],
 };
