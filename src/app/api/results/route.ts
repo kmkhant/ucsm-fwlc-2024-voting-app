@@ -37,8 +37,9 @@ export async function POST(request: Request) {
 		{
 			"role.candidateForPrincess": true,
 		},
+		["contestantId", "name", "votes.princess"],
 		{ sort: { "votes.princess": -1 } }
-	).select("contestantId name votes.princess");
+	);
 
 	const singer = await Contestant.findOne(
 		{
