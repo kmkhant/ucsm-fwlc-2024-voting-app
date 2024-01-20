@@ -1,21 +1,31 @@
 import { NextResponse } from "next/server";
-
-var show: Boolean = false;
+import { kv } from "@vercel/kv";
 
 export async function POST(request: Request) {
-	if (show) {
-		show = false;
-	} else {
-		show = true;
-	}
+	var showKV: Boolean | null = await kv.get("show");
 
-	return NextResponse.json({
-		message: "Server status changed",
-		show,
-	});
+	if (showKV) {
+		// toggle show if exists
+		await kv.set("show", !showKV);
+		const showResult = await kv.get("show");
+
+		return NextResponse.json({
+			message: "Server status changed",
+			show: showResult,
+		});
+	} else {
+		// set show to true and store if exists
+		await kv.set("show", true);
+		const showResult = await kv.get("show");
+		return NextResponse.json({
+			message: "Server status changed",
+			show: showResult,
+		});
+	}
 }
 
 export async function GET(request: Request) {
+	var show: Boolean | null = await kv.get("show");
 	return NextResponse.json({
 		show,
 	});

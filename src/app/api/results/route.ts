@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 			votes: king.votes.king,
 		},
 		fresherQueen: {
-			constestandId: queen.contestantId,
+			contestantId: queen.contestantId,
 			name: queen.name,
 			votes: queen.votes.queen,
 		},
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
 			votes: singer.votes.singer,
 		},
 		bestPerformance: {
-			contestandtId: performance.contestantId,
+			contestantId: performance.contestantId,
 			name: performance.name,
 			votes: performance.votes.performance,
 		},
