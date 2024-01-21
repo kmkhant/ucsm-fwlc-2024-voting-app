@@ -235,10 +235,13 @@ function Generate() {
 				<div className="mt-4">
 					<div className="flex justify-center text-white">
 						<button
-							className="btn btn-primary"
+							className="btn btn-primary disabled:bg-slate-500 disabled:cursor-not-allowed"
+							disabled={isResultsFetching}
 							onClick={() => refetchResults()}
 						>
-							Get Results
+							{isResultsFetching
+								? "Fetching..."
+								: "Get Results"}
 						</button>
 					</div>
 					<div className="flex justify-center">
