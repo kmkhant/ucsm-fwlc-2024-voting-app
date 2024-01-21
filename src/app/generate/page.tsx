@@ -116,6 +116,7 @@ function Generate() {
 	const mutation = useMutation(toggleServer, {
 		onSuccess: async () => {
 			refetchShow();
+			queryClient.invalidateQueries("serverStatus");
 		},
 	});
 
@@ -132,7 +133,7 @@ function Generate() {
 		}
 	};
 
-	return !authorized ? (
+	return authorized ? (
 		<section className="">
 			<div className="flex flex-col min-h-screen items-center justify-center h-full">
 				<div>
@@ -297,15 +298,17 @@ function Generate() {
 											Fresher Princess{" "}
 										</h1>
 										id:{" "}
-										{resultsData.fresherQueen.contestantId}{" "}
+										{
+											resultsData.fresherPrincess
+												.contestantId
+										}{" "}
 										<br />
 										name: {
-											resultsData.fresherQueen.name
+											resultsData.fresherPrincess.name
 										}{" "}
 										<br />
-										votes:{
-											resultsData.fresherQueen.votes
-										}{" "}
+										votes:
+										{resultsData.fresherPrincess.votes}{" "}
 										<br />
 									</div>
 									<div className="text-center my-4 text-lg">
