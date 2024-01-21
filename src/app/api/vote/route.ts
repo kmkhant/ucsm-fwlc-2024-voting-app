@@ -91,9 +91,12 @@ export async function POST(request: Request) {
 
 		// check if contestant is already voted for king
 		if (currentCoupon.stats.king.isKingVoted) {
+			const votedKingContestant = await Contestant.findOne({
+				contestantId: currentCoupon.stats.king.votedKing,
+			});
 			return NextResponse.json(
 				{
-					message: `Already voted ${currentCoupon.stats.king.votedKing} for King using this coupon`,
+					message: `Already voted ${currentCoupon.stats.king.votedKing} - ${votedKingContestant.name} for King using this coupon`,
 				},
 				{ status: 400 }
 			);
@@ -106,9 +109,14 @@ export async function POST(request: Request) {
 				currentCoupon.stats.prince.votedPrince ==
 				contestantId
 			) {
+				const votedPrinceContestant =
+					await Contestant.findOne({
+						contestantId:
+							currentCoupon.stats.prince.votedPrince,
+					});
 				return NextResponse.json(
 					{
-						message: `Already voted ${currentCoupon.stats.prince.votedPrince} for Prince using this coupon`,
+						message: `Already voted ${currentCoupon.stats.prince.votedPrince} - ${votedPrinceContestant.name} for Prince using this coupon`,
 					},
 					{ status: 400 }
 				);
@@ -154,9 +162,14 @@ export async function POST(request: Request) {
 
 		// check if coupon is already voted for prince
 		if (currentCoupon.stats.prince.isPrinceVoted) {
+			const votedPrinceContestant =
+				await Contestant.findOne({
+					contestantId:
+						currentCoupon.stats.prince.votedPrince,
+				});
 			return NextResponse.json(
 				{
-					message: `Already voted ${currentCoupon.stats.prince.votedPrince} for Prince using this coupon`,
+					message: `Already voted ${currentCoupon.stats.prince.votedPrince} - ${votedPrinceContestant.name} for Prince using this coupon`,
 				},
 				{ status: 400 }
 			);
@@ -167,9 +180,14 @@ export async function POST(request: Request) {
 			if (
 				currentCoupon.stats.king.votedKing == contestantId
 			) {
+				const votedKingContestant =
+					await Contestant.findOne({
+						contestantId:
+							currentCoupon.stats.king.votedKing,
+					});
 				return NextResponse.json(
 					{
-						message: `You already voted ${currentCoupon.stats.king.votedKing} for King using this coupon`,
+						message: `You already voted ${currentCoupon.stats.king.votedKing} - ${votedKingContestant.name} for King using this coupon`,
 					},
 					{ status: 400 }
 				);
@@ -220,9 +238,15 @@ export async function POST(request: Request) {
 
 		// check if contestant is already voted for queen
 		if (currentCoupon.stats.queen.isQueenVoted) {
+			const votedQueenContestant = await Contestant.findOne(
+				{
+					contestantId:
+						currentCoupon.stats.queen.votedQueen,
+				}
+			);
 			return NextResponse.json(
 				{
-					message: `Already voted ${currentCoupon.stats.queen.votedQueen} for Queen using this coupon`,
+					message: `Already voted ${currentCoupon.stats.queen.votedQueen} - ${votedQueenContestant.name} for Queen using this coupon`,
 				},
 				{ status: 400 }
 			);
@@ -235,9 +259,14 @@ export async function POST(request: Request) {
 				currentCoupon.stats.princess.votedPrincess ==
 				contestantId
 			) {
+				const votedPrincessContestant =
+					await Contestant.findOne({
+						contestantId:
+							currentCoupon.stats.princess.votedPrincess,
+					});
 				return NextResponse.json(
 					{
-						message: `Already voted ${currentCoupon.stats.princess.votedPrincess} for Princess using this coupon`,
+						message: `Already voted ${currentCoupon.stats.princess.votedPrincess} - ${votedPrincessContestant.name} for Princess using this coupon`,
 					},
 					{ status: 400 }
 				);
@@ -288,9 +317,14 @@ export async function POST(request: Request) {
 
 		// check if contestant is already voted for princess
 		if (currentCoupon.stats.princess.isPrincessVoted) {
+			const votedPrincessContestant =
+				await Contestant.findOne({
+					contestantId:
+						currentCoupon.stats.princess.votedPrincess,
+				});
 			return NextResponse.json(
 				{
-					message: `Already voted ${currentCoupon.stats.princess.votedPrincess} for Princess using this coupon`,
+					message: `Already voted ${currentCoupon.stats.princess.votedPrincess} - ${votedPrincessContestant.name} for Princess using this coupon`,
 				},
 				{ status: 400 }
 			);
@@ -302,9 +336,14 @@ export async function POST(request: Request) {
 			if (
 				currentCoupon.stats.queen.votedQueen == contestantId
 			) {
+				const votedQueenContestant =
+					await Contestant.findOne({
+						contestantId:
+							currentCoupon.stats.queen.votedQueen,
+					});
 				return NextResponse.json(
 					{
-						message: `Already voted ${currentCoupon.stats.queen.votedQueen} for Queen using this coupon`,
+						message: `Already voted ${currentCoupon.stats.queen.votedQueen} - ${votedQueenContestant.name} for Queen using this coupon`,
 					},
 					{ status: 400 }
 				);
