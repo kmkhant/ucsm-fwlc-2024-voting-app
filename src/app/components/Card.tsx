@@ -13,32 +13,106 @@ export const dataSelections: ICard[] = [
 	// king and princes
 	{
 		contestantId: "FWLC-KP-#1",
-		name: "Mg Nay Toe",
-		description: "Contestant #1",
-		image: PlaceHolderImage,
+		name: "Yan Shin",
+		image: "/images/fwlc-kp-1.jpg",
 		isMale: true,
 	},
 	{
 		contestantId: "FWLC-KP-#2",
-		name: "Mg Aung Ye Lin",
-		description: "Contestant #2",
-		image: PlaceHolderImage,
+		name: "Zin Min Thet",
+		image: "/images/fwlc-kp-2.jpg",
+		isMale: true,
+	},
+	{
+		contestantId: "FWLC-KP-#3",
+		name: "Htoo Annt Naing",
+		image: "/images/fwlc-kp-3.jpg",
+		isMale: true,
+	},
+	{
+		contestantId: "FWLC-KP-#4",
+		name: "Aung Chan Myae Kyaw",
+		image: "/images/fwlc-kp-4.jpg",
+		isMale: true,
+	},
+	{
+		contestantId: "FWLC-KP-#5",
+		name: "La Min Htwe",
+		image: "/images/fwlc-kp-5.jpg",
 		isMale: true,
 	},
 
 	// Queen and Princesses
 	{
 		contestantId: "FWLC-QP-#1",
-		name: "Ma Soe Pyae Thazin",
-		description: "Contestant #1",
-		image: PlaceHolderImage,
+		name: "Ei Thazin Aung",
+		image: "/images/fwlc-qp-1.jpg",
 		isFemale: true,
 	},
 	{
 		contestantId: "FWLC-QP-#2",
-		name: "Ma Moe Hay Ko",
-		description: "Contestant #2",
-		image: PlaceHolderImage,
+		name: "May Thin Khaing",
+		image: "/images/fwlc-qp-2.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#3",
+		name: "Cho Nay Linn",
+		image: "/images/fwlc-qp-3.jpg",
+		isMale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#4",
+		name: "Kay Thi Aung",
+		image: "/images/fwlc-qp-4.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#5",
+		name: "Yoon Thiri Ko Ko",
+		image: "/images/fwlc-qp-5.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#6",
+		name: "Sandar Htun",
+		image: "/images/fwlc-qp-6.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#7",
+		name: "Khun Sint Than Thar",
+		image: "/images/fwlc-qp-7.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#8",
+		name: "Khin Hnin Yu",
+		image: "/images/fwlc-qp-8.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#9",
+		name: "May Phuu Thwe",
+		image: "/images/fwlc-qp-9.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#10",
+		name: "Hnin Pwint Phyu",
+		image: "/images/fwlc-qp-10.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#11",
+		name: "Swe Khaing Win",
+		image: "/images/fwlc-qp-11.jpg",
+		isFemale: true,
+	},
+	{
+		contestantId: "FWLC-QP-#12",
+		name: "May Myat Noe",
+		image: "/images/fwlc-qp-12.jpg",
 		isFemale: true,
 	},
 ];
@@ -47,28 +121,24 @@ export const dataOthers: ICard[] = [
 	{
 		contestantId: "FWLC-S-#1",
 		name: "Ma Bobby Soxer",
-		description: "Singer #1",
 		image: PlaceHolderImage,
 		isSinger: true,
 	},
 	{
 		contestantId: "FWLC-S-#2",
 		name: "Mg Hlawn Paing",
-		description: "Singer #2",
 		image: PlaceHolderImage,
 		isSinger: true,
 	},
 	{
 		contestantId: "FWLC-P-#1",
 		name: "KPOP Dance Group",
-		description: "Performance #1",
 		image: PlaceHolderImage,
 		isPerformance: true,
 	},
 	{
 		contestantId: "FWLC-P-#2",
 		name: "Yein Aka",
-		description: "Performance #2",
 		image: PlaceHolderImage,
 		isPerformance: true,
 	},
@@ -77,7 +147,6 @@ export const dataOthers: ICard[] = [
 function Card({
 	contestantId,
 	name,
-	description,
 	image,
 	isMale,
 	isFemale,
@@ -252,7 +321,7 @@ function Card({
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	return (
-		<div className="p-4 rounded-md backdrop-blur-xl shadow-2xl mt-4">
+		<div className="p-4 rounded-md backdrop-blur-xl shadow-2xl my-4">
 			<div className="">
 				<Image
 					src={image}
@@ -265,7 +334,7 @@ function Card({
 				<h2 className="font-bold capitalize text-lg">
 					{name}
 				</h2>
-				<p>{description}</p>
+				<p>{contestantId}</p>
 			</div>
 			<div className={`${isMale ? "block" : "hidden"}`}>
 				<div className="flex items-center">

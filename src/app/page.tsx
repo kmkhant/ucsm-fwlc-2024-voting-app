@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Card, {
 	dataSelections,
 	dataOthers,
@@ -7,6 +7,12 @@ import Card, {
 import { useOptionContext } from "./context/OptionContext";
 import { ICard } from "./types/interfaces";
 import instance from "@/utils/axios";
+import { useQuery } from "react-query";
+import { Metadata } from "next";
+
+const metadata: Metadata = {
+	title: "Fresher Welcome 2024",
+};
 
 export default function Home() {
 	const { option, setOption } = useOptionContext();
@@ -17,19 +23,37 @@ export default function Home() {
 		else return dataOthers;
 	}, [option]);
 
-	useEffect(() => {
-		instance
-			.get("/toggleServer")
-			.then((res) => {
-				setShow(res.data.show);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+	const getServerStatus = async () => {
+		try {
+			const resp = await instance.get("/toggleServer");
+			const { data } = resp;
+			setShow(data.show);
+		} catch (e) {
+			console.log(e);
+			return undefined;
+		}
+	};
+
+	const serverStatusQuery = useQuery(
+		"serverStatus",
+		getServerStatus
+	);
+
+	// useEffect(() => {
+	// 	instance
+	// 		.get("/toggleServer")
+	// 		.then((res) => {
+	// 			setShow(res.data.show);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// }, []);
 
 	return !show ? (
-		<main className="text-center"></main>
+		<main className="text-center">
+			Voting is not opened yet.
+		</main>
 	) : (
 		<main className="">
 			<div className="flex pl-4 mb-6 items-center">

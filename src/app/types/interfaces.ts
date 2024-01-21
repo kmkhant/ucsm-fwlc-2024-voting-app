@@ -9,8 +9,7 @@ export interface OptionContextProps {
 export interface ICard {
 	contestantId: string;
 	name: string;
-	description: string;
-	image: StaticImageData;
+	image: StaticImageData | string;
 	isMale?: boolean;
 	isFemale?: boolean;
 	isSinger?: boolean;
