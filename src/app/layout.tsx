@@ -29,6 +29,10 @@ export default function RootLayout({
 					</QueryClientProvider>
 				</OptionStateContext>
 				<ToastContainer />
+				<footer className="text-center text-sm py-4">
+					<h6>Made with ❤️</h6>
+					<h6>&copy; Khaing Myel Khant - 2024</h6>
+				</footer>
 			</body>
 		</html>
 	);
