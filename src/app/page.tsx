@@ -9,6 +9,7 @@ import { ICard } from "./types/interfaces";
 import instance from "@/utils/axios";
 import { useQuery } from "react-query";
 import { Metadata } from "next";
+import { LineWave, Triangle } from "react-loader-spinner";
 
 const metadata: Metadata = {
 	title: "Fresher Welcome 2024",
@@ -34,7 +35,7 @@ export default function Home() {
 		}
 	};
 
-	const serverStatusQuery = useQuery(
+	const { status, isFetching } = useQuery(
 		"serverStatus",
 		getServerStatus
 	);
@@ -51,11 +52,33 @@ export default function Home() {
 	// }, []);
 
 	return !show ? (
-		<main className="text-center">
-			Voting is not opened yet.
+		<main className="text-center min-h-[70vh]">
+			{status === "loading" && (
+				<div>
+					<div className="min-h-[20vh]"></div>
+					<div className="flex flex-col justify-center items-center">
+						<Triangle
+							visible={true}
+							height="80"
+							width="80"
+							color="#000"
+							wrapperStyle={{}}
+						/>
+					</div>
+				</div>
+			)}
+			{status === "success" && (
+				<div>
+					<div className="min-h-[20vh]"></div>
+					<div className="flex flex-col justify-center items-center">
+						<h3>Voting is not opened yet...</h3>
+						<h3>Please Be Patient 🙏 </h3>
+					</div>
+				</div>
+			)}
 		</main>
 	) : (
-		<main className="">
+		<main className="min-h-screen">
 			<div className="flex pl-4 mb-6 items-center">
 				<button
 					className={`ml-4 inline-block font-semibold ${
@@ -79,10 +102,6 @@ export default function Home() {
 					<Card key={idx} {...card} />
 				))}
 			</section>
-			<footer className="text-center text-sm my-4">
-				<h6>Made with ❤️</h6>
-				<h6>&copy; Khaing Myel Khant - 2024</h6>
-			</footer>
 		</main>
 	);
 }
