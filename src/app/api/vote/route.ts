@@ -382,31 +382,33 @@ export async function POST(request: Request) {
 	if (candidateForSinger) {
 		// check if contestant is a valid candidate for singer
 		if (!currentContestant.role.candidateForSinger) {
-			return new Response(
-				JSON.stringify({
-					message: "Candidate is not for Singer",
-				}),
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
+					message: "Candidate is not for Singer",
+				},
+				{ status: 400 }
 			);
 		}
 
 		// check if contestant is already voted for singer
-		if (currentCoupon.stats.isSingerVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Singer",
-				}),
+		if (currentCoupon.stats.singer.isSingerVoted) {
+			const votedSingerContestant =
+				await Contestant.findOne({
+					contestantId:
+						currentCoupon.stats.singer.votedSinger,
+				});
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
+					message: `Already voted ${votedSingerContestant.name} for Singer using this coupon`,
+				},
+				{ status: 400 }
 			);
 		} else {
 			// handle vote
-			currentCoupon.stats.isSingerVoted = true;
+			// add voted queen to coupon
+			currentCoupon.stats.singer.votedSinger = contestantId;
+
+			currentCoupon.stats.singer.isSingerVoted = true;
 
 			// increase vote count
 			currentContestant.votes.singer += 1;
@@ -445,20 +447,29 @@ export async function POST(request: Request) {
 			);
 		}
 
-		// check if contestant is already voted for prince
-		if (currentCoupon.stats.isPerformanceVoted) {
-			return new Response(
-				JSON.stringify({
-					message: "Already Voted for the Performance",
-				}),
+		// check if contestant is already voted for performance
+		if (
+			currentCoupon.stats.performance.isPerformanceVoted
+		) {
+			const votedPerformanceContestant =
+				await Contestant.findOne({
+					contestantId:
+						currentCoupon.stats.performance
+							.votedPerformance,
+				});
+			return NextResponse.json(
 				{
-					headers: { "content-type": "application/json" },
-					status: 400,
-				}
+					message: `Already voted ${votedPerformanceContestant.name} for Performance using this coupon`,
+				},
+				{ status: 400 }
 			);
 		} else {
 			// handle vote
-			currentCoupon.stats.isPerformanceVoted = true;
+			// add voted performance to coupon
+			currentCoupon.stats.performance.votedPerformance =
+				contestantId;
+			currentCoupon.stats.performance.isPerformanceVoted =
+				true;
 
 			// increase vote count
 			currentContestant.votes.performance += 1;
