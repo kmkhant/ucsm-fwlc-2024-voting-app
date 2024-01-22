@@ -32,8 +32,26 @@ const Coupon = new mongoose.Schema({
 			},
 			isPrincessVoted: { type: Boolean, defaults: false },
 		},
-		isSingerVoted: { type: Boolean, defaults: false },
-		isPerformanceVoted: { type: Boolean, defaults: false },
+		singer: {
+			votedSinger: {
+				type: String,
+				default: "",
+			},
+			isSingerVoted: {
+				type: Boolean,
+				defaults: false,
+			},
+		},
+		performance: {
+			votedPerformance: {
+				type: String,
+				default: "",
+			},
+			isPerformanceVoted: {
+				type: Boolean,
+				defaults: false,
+			},
+		},
 	},
 });
 
