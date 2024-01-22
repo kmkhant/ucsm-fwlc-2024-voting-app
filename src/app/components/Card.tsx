@@ -59,7 +59,7 @@ export const dataSelections: ICard[] = [
 		contestantId: "FWLC-QP-#3",
 		name: "Cho Nay Linn",
 		image: "/images/fwlc-qp-3.jpg",
-		isMale: true,
+		isFemale: true,
 	},
 	{
 		contestantId: "FWLC-QP-#4",
