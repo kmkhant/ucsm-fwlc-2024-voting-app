@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 	const codes = voucher_codes.generate({
 		prefix: "fwlc-",
 		length: 6,
-		count: 5,
+		count: 300,
 		postfix: "-2024",
 	});
 
@@ -38,8 +38,14 @@ export async function POST(request: Request) {
 						votedPrincess: "",
 						isPrincessVoted: false,
 					},
-					isSingerVoted: false,
-					isPerformanceVoted: false,
+					isSingerVoted: {
+						votedSinger: "",
+						isSingerVoted: false,
+					},
+					isPerformanceVoted: {
+						votedPerformance: "",
+						isPerformanceVoted: false,
+					},
 				},
 			})
 		);
