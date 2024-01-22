@@ -10,6 +10,7 @@ export interface ICard {
 	contestantId: string;
 	name: string;
 	image: StaticImageData | string;
+	description?: string;
 	isMale?: boolean;
 	isFemale?: boolean;
 	isSinger?: boolean;

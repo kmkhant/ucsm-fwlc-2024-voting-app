@@ -594,6 +594,26 @@ export async function POST(request: Request) {
 				singer: 0,
 			},
 		}),
+		new Contestant({
+			contestantId: "FWLC-P-#9",
+			name: "Project",
+			role: {
+				candidateForKing: false,
+				candidateForPrince: false,
+				candidateForQueen: false,
+				candidateForPrincess: false,
+				candidateForPerformance: true,
+				candidateForSinger: false,
+			},
+			votes: {
+				king: 0,
+				prince: 0,
+				queen: 0,
+				princess: 0,
+				performance: 0,
+				singer: 0,
+			},
+		}),
 	];
 
 	try {

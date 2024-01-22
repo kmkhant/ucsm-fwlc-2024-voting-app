@@ -118,29 +118,107 @@ export const dataSelections: ICard[] = [
 ];
 
 export const dataOthers: ICard[] = [
+	// singers
 	{
 		contestantId: "FWLC-S-#1",
-		name: "Ma Bobby Soxer",
-		image: PlaceHolderImage,
+		name: "Su Myat Hnin - Solo",
+		image: "/images/singer/fwlc-s-1-su-myat-hnin.jpg",
 		isSinger: true,
+		description: "တတိယမြောက်ရည်းစားစကားနိဒါန်း",
 	},
 	{
 		contestantId: "FWLC-S-#2",
-		name: "Mg Hlawn Paing",
-		image: PlaceHolderImage,
+		name: "Khaing Kyaw Kyaw - Solo",
+		image:
+			"/images/singer/fwlc-s-2-KhaingKyawKyaw-solo-min.jpg",
 		isSinger: true,
+		description: "solo သီချင်း",
 	},
 	{
+		contestantId: "FWLC-S-#3",
+		name: "Khaing Kyaw Kyaw & Su Myat Hnin",
+		image:
+			"/images/singer/fwlc-s-3-KhaingKyawKyaw&SuMyatHnin-ngar-bayin-ma-min.jpg",
+		isSinger: true,
+		description: "ငါဘုရင်မ",
+	},
+	{
+		contestantId: "FWLC-S-#4",
+		name: "Trio Singers",
+		image:
+			"/images/singer/fwlc-s-4-thuma-nint-aein-mat.jpg",
+		isSinger: true,
+		description: "သူမနှင့်အိပ်မက်",
+	},
+
+	// Performance Contestants
+	{
 		contestantId: "FWLC-P-#1",
-		name: "KPOP Dance Group",
-		image: PlaceHolderImage,
+		name: "Congrats My EX",
+		image:
+			"/images/performance/fwlc-p-1-congrats-my-ex-india-dance.jpg",
 		isPerformance: true,
+		description: "India Dance",
 	},
 	{
 		contestantId: "FWLC-P-#2",
-		name: "Yein Aka",
-		image: PlaceHolderImage,
+		name: "Radha",
+		image:
+			"/images/performance/fwlc-p-2-radha-india-dance-couple.jpg",
 		isPerformance: true,
+		description: "India Couple Dance",
+	},
+	{
+		contestantId: "FWLC-P-#3",
+		name: "အာဝါဟ",
+		image: "/images/performance/fwlc-p-3-ar-wa-ha.jpg",
+		isPerformance: true,
+		description: "Performance သီချင်း",
+	},
+	{
+		contestantId: "FWLC-P-#4",
+		name: "Final Year Dance Group",
+		image:
+			"/images/performance/fwlc-p-4-final-year-dance-group.jpg",
+		isPerformance: true,
+		description: "Dance & Performance",
+	},
+	{
+		contestantId: "FWLC-P-#5",
+		name: "Picture",
+		image:
+			"/images/performance/fwlc-p-5-picture-kpop-dance.jpg",
+		isPerformance: true,
+		description: "KPOP Dance",
+	},
+	{
+		contestantId: "FWLC-P-#6",
+		name: "နပန်းစံ",
+		image: "/images/performance/fwlc-p-6-napan-san.jpg",
+		isPerformance: true,
+		description: "Dance & Performance",
+	},
+	{
+		contestantId: "FWLC-P-#7",
+		name: "Happiness",
+		image: "/images/performance/fwlc-p-7-happiness.jpg",
+		isPerformance: true,
+		description: "Dance & Performance",
+	},
+	{
+		contestantId: "FWLC-P-#8",
+		name: "Happiness",
+		image:
+			"/images/performance/fwlc-p-8-taung-yar-win-chain.jpg",
+		isPerformance: true,
+		description: "Dance & Performance",
+	},
+	{
+		contestantId: "FWLC-P-#9",
+		name: "Happiness",
+		image: "/images/performance/fwlc-p-8-project.jpg",
+		isPerformance: true,
+		description: "Project",
 	},
 ];
 
@@ -152,6 +230,7 @@ function Card({
 	isFemale,
 	isSinger,
 	isPerformance,
+	description,
 }: ICard) {
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -327,6 +406,11 @@ function Card({
 					{name}
 				</h2>
 				<p>{contestantId}</p>
+				{description && (
+					<p className="text-sm text-gray-500">
+						{description}
+					</p>
+				)}
 			</div>
 			<div className={`${isMale ? "block" : "hidden"}`}>
 				<div className="flex items-center">
