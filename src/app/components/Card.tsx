@@ -150,6 +150,69 @@ export const dataOthers: ICard[] = [
 		isSinger: true,
 		description: "သူမနှင့်အိပ်မက်",
 	},
+	{
+		contestantId: "FWLC-S-#5",
+		name: "May Yamin Khin",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "သူသိသွားပြီ",
+	},
+	{
+		contestantId: "FWLC-S-#6",
+		name: "SE Major",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "အလွမ်းရယ်မပြေ",
+	},
+	{
+		contestantId: "FWLC-S-#7",
+		name: "May Pannyaung Ko Ko",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "That Should Be Me",
+	},
+	{
+		contestantId: "FWLC-S-#8",
+		name: "Ei Thazin Aung",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "တာဝန်အရ",
+	},
+	{
+		contestantId: "FWLC-S-#9",
+		name: "Ma Yamin Khin",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "Say Yes to Heaven",
+	},
+	{
+		contestantId: "FWLC-S-#10",
+		name: "Ei Thu Win",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "Solo Song",
+	},
+	{
+		contestantId: "FWLC-S-#11",
+		name: "Sai Sithu Htun",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "Solo Song",
+	},
+	{
+		contestantId: "FWLC-S-#12",
+		name: "Au Thawdar Moe",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "Strawberry and Cigraettes",
+	},
+	{
+		contestantId: "FWLC-S-#13",
+		name: "Sai Sithu Htun",
+		image: PlaceHolderImage,
+		isSinger: true,
+		description: "Waiting for You",
+	},
 
 	// Performance Contestants
 	{
@@ -205,20 +268,42 @@ export const dataOthers: ICard[] = [
 		isPerformance: true,
 		description: "Dance & Performance",
 	},
+
 	{
 		contestantId: "FWLC-P-#8",
-		name: "Happiness",
+		name: "Project",
+		image: "/images/performance/fwlc-p-8-project.jpg",
+		isPerformance: true,
+		description: "Project",
+	},
+	{
+		contestantId: "FWLC-P-#9",
+		name: "တောင်ယာဝင်ချိန်",
 		image:
-			"/images/performance/fwlc-p-8-taung-yar-win-chain.jpg",
+			"/images/performance/fwlc-p-9-taung-yar-win-chain.jpg",
 		isPerformance: true,
 		description: "Dance & Performance",
 	},
 	{
-		contestantId: "FWLC-P-#9",
-		name: "Happiness",
-		image: "/images/performance/fwlc-p-8-project.jpg",
+		contestantId: "FWLC-P-#10",
+		name: "မူယာကျော့",
+		image: PlaceHolderImage,
 		isPerformance: true,
-		description: "Project",
+		description: "မြန်မာအက",
+	},
+	{
+		contestantId: "FWLC-P-#11",
+		name: "မှုံရွှေရည်",
+		image: PlaceHolderImage,
+		isPerformance: true,
+		description: "မြန်မာအက",
+	},
+	{
+		contestantId: "FWLC-P-#12",
+		name: "မီးနဲ့ရေ",
+		image: PlaceHolderImage,
+		isPerformance: true,
+		description: "Dance & Performance",
 	},
 ];
 
