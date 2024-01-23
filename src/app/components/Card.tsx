@@ -263,6 +263,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setIsKingOrPrince("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -270,6 +271,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setIsKingOrPrince("");
 					}
 				} else {
 					// vote for prince
@@ -282,6 +284,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setIsKingOrPrince("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -289,6 +292,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setIsKingOrPrince("");
 					}
 				}
 			}
@@ -311,6 +315,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setQueenOrPrincess("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -318,6 +323,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setQueenOrPrincess("");
 					}
 				} else {
 					// vote for princess
@@ -330,6 +336,7 @@ function Card({
 						});
 						toast.success(data.message);
 						setLoading(false);
+						setQueenOrPrincess("");
 					} catch (e) {
 						if (axios.isAxiosError(e)) {
 							toast.error(e.response?.data?.message);
@@ -337,6 +344,7 @@ function Card({
 							toast.error("Oops! Something went wrong");
 						}
 						setLoading(false);
+						setQueenOrPrincess("");
 					}
 				}
 			}
