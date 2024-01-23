@@ -180,7 +180,7 @@ export const dataOthers: ICard[] = [
 	},
 	{
 		contestantId: "FWLC-S-#9",
-		name: "Ma Yamin Khin",
+		name: "May Yamin Khin",
 		image: PlaceHolderImage,
 		isSinger: true,
 		description: "Say Yes to Heaven",
