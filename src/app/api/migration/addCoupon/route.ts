@@ -38,11 +38,11 @@ export async function POST(request: Request) {
 						votedPrincess: "",
 						isPrincessVoted: false,
 					},
-					isSingerVoted: {
+					singer: {
 						votedSinger: "",
 						isSingerVoted: false,
 					},
-					isPerformanceVoted: {
+					performance: {
 						votedPerformance: "",
 						isPerformanceVoted: false,
 					},
