@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Fresher Welcome Voting App
+Welcome to my codebase for the Fresher Welcome Voting App for UCSM Fresher Welcome 2024
 
-## Getting Started
+this app is hosted on vercel 
+https://ucsm-fwlc-2024-voting-app.vercel.app/
 
-First, run the development server:
+![homepage](/images/home.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to use
+It has currently a little steps for the admin to vote.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* send request to /api/generate with correct secret key to generate coupons
+* open /generate on browser and enter the correct passcode then click on generate coupon
+* client can use this coupon in the browser to vote for the performances they like
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Notes
+* you won't be able to generate coupons from browser if all the newly added coupons are generated
+* You can only vote once per role
+* backend only need basic auth-key to access the api, make sure you reimplement it if you want to make more secure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### CHALLENGE
+I was assigned to code for the voting app exactly 1 week before the event. It's quite challenging to finish in time but somehow I managed to finished it.
 
-## Learn More
+### How I Solved the Challenge - Backend
+Normally, fresher welcome voting system is calculated with number of unique printed coupons that are given to each student. I decided to transform these physical coupons to digital with the help of the library called voucher_code_generator via NPM.
 
-To learn more about Next.js, take a look at the following resources:
+I created 2 tables for the things related to coupons. Coupons Table and Stats Table.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For Coupons table, I stored a few hundreds of unique coupons which are then linked with Stats Table.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Stats Table basically check the coupon's stats like is it already voted for the singer using this coupon ? If singer is already voted, you can't vote for singer with this coupon code anymore. The DB relation look like this.
 
-## Deploy on Vercel
+![DB relation between Coupons and Stats Table](/images/image.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In short, It's like I just checked the the checkboxes on physical coupon token but digitally in this case.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Then, I modelled contestants as MongoDB models where I divide their roles and current voting counts got.
+
+![Model](/images/model.png)
+
+It would be better if I could do with relations but I modelled the total number of votes for assigned role in the model for the faster development purposes.
+
+I also integrated with redis-store from vercel to reflect server status of the app whether to open voting or not.
+
+I decided to do Create, Update, Read, Delete manually due to lower number of the contestests to vote.
+
+You can read how I coded api routes in src/app/api
+
+I didn't implemented a authenication system like JWT, so I prevented admin features like add coupons, delete coupons, delete user routes with the help of a middle where I test a secret token. I communicate with the admin apis from my postman desktop client.
+
+### How I Solved the Challenge - Frontend
+Frontend is pretty straight forward. I used NextJS and deployed on vercel for fast loading speed and efficiently monitor the traffic on vercel like how many people are currently using my app.
+
+I was thinking is it worth to implement an admin dashboard ? But the time duration given to me is just 7 days. I can do but there would be bugs.
+
+It does need to access admin panel like page to get the results from server. I don't want everyone to access to that page. So, I encrypted the api route and made an input box in generate page to enter the actual page if correct passcode is submitted.
+
+
