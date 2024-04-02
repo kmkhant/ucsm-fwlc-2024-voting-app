@@ -53,6 +53,6 @@ Frontend is pretty straight forward. I used NextJS and deployed on vercel for fa
 
 I was thinking is it worth to implement an admin dashboard ? But the time duration given to me is just 7 days. I can do but there would be bugs.
 
-It does need to access admin panel like page to get the results from server. I don't want everyone to access to that page. So, I encrypted the api route and made an input box in generate page to enter the actual page if correct passcode is submitted.
+It does need to access admin panel like page to get the results from server. I don't want everyone to access to that page. So, I encrypted the api route and made an input box in generate page to enter the actual page if correct passcode is submitted. Then, fetch request from the api using the secret key.
 
 
