@@ -1,5 +1,7 @@
 ## Fresher Welcome Voting App
-Welcome to my codebase for the Fresher Welcome Voting App for UCSM Fresher Welcome 2024
+Welcome to my codebase for the Fresher Welcome Voting App for UCSM Fresher Welcome 2024.
+This project is created with $0 dollar budget although I can perform in realtime.
+I hosted both frontend and backend on vercel for free. Integrated with redis on vercel for free again. Then, connect with mongodb cloud atlas for free :P. Thanks you vercel <3
 
 this app is hosted on vercel 
 https://ucsm-fwlc-2024-voting-app.vercel.app/
